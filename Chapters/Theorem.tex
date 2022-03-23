@@ -34,7 +34,7 @@
     \end{align}
 \end{proof}
 
-Označme tedy $M^N$ prostor (varietu) s lokálními souřadnicemi $u^1,\cdots, u^N$. Pak lze na tvrzení \vref{prop:transformace-A} nahlížet jako na změnu souřadnic na $M^N$ a funkce $f^{i \alpha}_j$ jsou tenzory typu (1,1) pro každé zvolené $\alpha$. Zavedeme nyní bohatší geometrii na $M^N$ pro případ, že $f^{i  \alpha}_j$ jsou ve speciálním tvaru.
+Označme tedy $M^N$ prostor (varietu) s lokálními souřadnicemi $u^1,\cdots, u^N$. Pak lze na tvrzení \vref{prop:transformace-A} nahlížet jako na změnu souřadnic na $M^N$ a funkce $f^{i \alpha}_j$ jsou tenzory typu (1,1) pro každé zvolené $\alpha$. Pro případ, že $f^{i  \alpha}_j$ jsou ve speciálním tvaru, zavedeme bohatší geometrii na $M^N$ .
 
 \begin{definition}
     \begin{enumerate}
@@ -95,7 +95,7 @@ Podle tvrzení \vref{prop:transoformace} níže je nedegenerovanost závorky inv
 \begin{definition}
     Nechť je matice $(g^{ij}(u))$ nedegenerovaná. Definujme funkce $\Gamma^{i}_{jk}(u)$ vztahem
         \begin{align}
-            b_k^{ij}(u) = -g^{is}(u) \Gamma^j_{sk}(u) \:, \quad i,j,k,s=1,\dots,N \:.
+            b_k^{ij}(u) = -g^{is}(u) \Gamma^j_{sk}(u) \:, \quad i,j,k,s=1,\dots,N \:. \label{eq:definice-Gamma}
         \end{align}
 \end{definition}
 
@@ -125,6 +125,8 @@ Dále uvidíme, že volba značení $g^{ij}$ a $\Gamma^{i}_{jk}$ není náhodná
 
 \subsection{Geometrie prostoru $M^N$}
 
+V tomto paragrafu si povšimneme, že na prostoru $M^N$ lze zavést tensorová pole a afinní konexi, což nám dále umožní formulovat tvrzení o ekvivalenci hamiltonovské a riemannovské struktury.
+
 \begin{proposition}[O transformaci proměnných] \label{prop:transoformace}
     Uvažujme transformaci $u^i \mapsto v^i $  danou vztahem
     \begin{align}
@@ -133,7 +135,10 @@ Dále uvidíme, že volba značení $g^{ij}$ a $\Gamma^{i}_{jk}$ není náhodná
     která je diffeomorfismem třídy $C^2$.
     Pak platí následující tvrzení:
     \begin{enumerate}
-        \item Třída Poissonových závorek hydrodynamického typu je invariantní vůči záměně proměnných $u^i \mapsto v^i(u)$.
+        \item Poissonovy závorky se transformují jako tensory typu (2,0), tj.
+        \begin{align}
+            \set{v^p(u^i(x)),v^q(u^j(y))} = \pder{v^p}{u^i}(x) \pder{v^q}{u^j}(y) \set{u^i(x),u^j(y)} \:. \label{eq:transformace-zavorka}
+        \end{align}
         \item Koeficienty $g^{ij}(u)$ se transformují jako tensory typu (0,2), tj.
         \begin{align}
             g^{pq}(v) = \pder{v^p}{u^i} \pder{v^q}{u^j} g^{ij}[u(v)] \:, \quad p, q = 1, \dots, N \:. \label{eq:transformace-metrika}
@@ -147,38 +152,39 @@ Dále uvidíme, že volba značení $g^{ij}$ a $\Gamma^{i}_{jk}$ není náhodná
 
 \begin{proof}
     \begin{enumerate}
-        \item Leibnizova identita dává
+        \item Přímým dosazením do definice
         \begin{align}
-            \set{v^p(u^i(x)),v^q(u^j(y))} = \pder{v^p}{u^i}(x) \pder{v^q}{u^j}(y) \set{u^i(x),u^j(y)}
+            \set{v^p(u^i(x)),v^q(u^j(y))} 
+            =& \int \D x' \int \D y' \underbrace{\fder{v^p}{u^i(x')} }_{\pder{v^p}{u^i}(x') \delta(x-x')} \set{u^i(x'),u^j(y')} \underbrace{\fder{v^q}{u^j(y')} }_{\pder{v^q}{u^j}(y') \delta(y-y')}
+            = \\ =& \pder{v^p}{u^i}(x) \pder{v^q}{u^j}(y) \set{u^i(x),u^j(y)} \:.
         \end{align}
-        \todo[inline]{promyslet si, proč}
-        \item Rozepišme transformaci závorky
+        \item Rozepišme transformaci závorky \eqref{eq:transformace-zavorka} pomocí \eqref{eq:Poisson1D}
         \begin{align}
-            g^{pq}(v) \delta'(x-y) + b^{pq}_s \pder{v^s}{u^k} \pder{u^k}{x} \delta(x-y)
-            = \pder{v^p}{u^i}(x) \pder{v^q}{u^j}(y) \left[ g^{ij}(u) \delta'(x-y) + b^{ij}_k(u) \pder{u^k}{x} \delta(x-y) \right] \:.
+            g^{pq}[v(u(x))] \delta'(x-y) + b^{pq}_s[v(u(x))] \pder{v^s}{u^k}(x) \pder{u^k}{x} \delta(x-y)
+            = \pder{v^p}{u^i}(x) \pder{v^q}{u^j}(y) \left[ g^{ij}[u(x)] \delta'(x-y) + b^{ij}_k[u(x)] \pder{u^k}{x} \delta(x-y) \right] \:. \label{eq:dosad}
         \end{align}
         V dalším pro přehlednost označme
         \begin{align}
-            T^a_k = \pder{v^a}{u^k} \:.
+            T^a_k(x) := \pder{v^a}{u^k}(x) \:.
         \end{align}
-        Využitím lemmatu \vref{lemma:delta} dostaneme
+        Na pravé straně rovnice \eqref{eq:dosad} vyjádříme $T^q_j(y) \delta'(x-y)$ pomocí lemmatu \vref{lemma:delta}. Tím převedeme všechny funkce do proměnné $x$, což už dále nebudeme explicitně vypisovat. Dostaneme
         \begin{align}
-            g^{pq}(v) \delta'(x-y) + b^{pq}_n T^n_j u^j_x \delta(x-y) 
-            = T^p_i(x) T^q_j(x) g^{ij}(u) \delta'(x-y) 
-            + \left( \ppder{v^q}{u^j}{u^k} + T^p_i T^q_j b^{ij}_k \right) u^k_x \delta(x-y) \:.
+            g^{pq}(v) \delta'(x-y) + b^{pq}_n(v) T^n_j \pder{u^j}{x} \delta(x-y) 
+            = T^p_i T^q_j g^{ij}(u) \delta'(x-y) 
+            + \left( \ppder{v^q}{u^j}{u^k} + T^p_i T^q_j b^{ij}_k \right) \pder{u^k}{x} \delta(x-y) \:.
         \end{align}
-        Porovnáním členů s $\delta'$ dostaneme přímo vztah \eqref{eq:transformace-metrika}.
+        Porovnáním členů s $\delta'$ dostaneme vztah pro transformaci metriky \eqref{eq:transformace-metrika}.
         \item Porovnáním členů s $\delta$ dostaneme
         \begin{align}
             b^{pq}_n(v) T^n_k =
             b^{ij}_k(u) T^p_i T^q_j + g^{ij}(u) T^p_i \ppder{v^q}{u^i}{u^k}
         \end{align}
-        a po rozpisu
+        a po rozpisu pomocí \eqref{eq:definice-Gamma}
         \begin{align}
             - g^{ps}(v) \Gamma^{q}_{sn}(v) T^n_k =
             - g^{il}(u) \Gamma^j_{lk}(u) T^p_i T^q_j + g^{ij}(u) T^p_i \ppder{v^q}{u^i}{u^k} \:.
         \end{align}
-        Na levé straně využijeme \eqref{eq:transformace-metrika} a dostaneme
+        Na levé straně využijeme transformaci metriky \eqref{eq:transformace-metrika} a dostaneme
         \begin{align}
             -g^{ij}(u) \Gamma^q_{sm}(v) T^p_i T^s_j T^m_k = - g^{ij}(u) \Gamma^l_{jk} T^p_i T^q_l + g^{ij}(u) \ppder{v^q}{u^i}{u^k} T^p_i 
         \end{align}
@@ -186,11 +192,11 @@ Dále uvidíme, že volba značení $g^{ij}$ a $\Gamma^{i}_{jk}$ není náhodná
         \begin{align}
             \Gamma^l_{jk}(u) T^q_l = \Gamma^q_{sm}(v) T^s_j T^m_k + \ppder{v^q}{u^i}{u^k} \:.
         \end{align}
-        Odtud
+        V posledním kroku přenásobíme inverzní maticí $(T^{-1})^a_q$ a dostaneme
         \begin{align}
-            \Gamma^l_{jk}(u) = \Gamma^q_{sm}(v) \pder{v^s}{u^j} \pder{v^m}{u^k} \pder{u^l}{v^q} + \ppder{v^q}{u^i}{u^k} \pder{u^l}{v^q} \:,
+            \Gamma^a_{jk}(u) = \Gamma^q_{sm}(v) \pder{v^s}{u^j} \pder{v^m}{u^k} \pder{u^a}{v^q} + \ppder{v^q}{u^i}{u^k} \pder{u^a}{v^q} \:,
         \end{align}
-        což je hledaný transformační vztah.
+        což je hledaný transformační vztah \eqref{eq:transformace-konexe}.
     \end{enumerate}
 \end{proof}
 
